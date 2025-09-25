@@ -1,0 +1,31 @@
+# Archivos de configuración sensibles
+.env
+config.env
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de cache
+cache/
+tmp/
+
+# Archivos de uploads (si los hay)
+uploads/
+files/
