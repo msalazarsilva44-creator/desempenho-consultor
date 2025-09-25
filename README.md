@@ -117,8 +117,5 @@ ORDER BY U.NO_USUARIO
 - Reglas de negocio: Cálculos verificados
 - Compatibilidad: Navegadores modernos
 
-## 📞 Contacto
-Desarrollado para prueba técnica de desempeño comercial.
 
----
-**Desarrollado con ❤️ usando PHP, Bootstrap y Chart.js**
+
