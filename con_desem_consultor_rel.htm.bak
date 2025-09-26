@@ -12,6 +12,7 @@
 		<script language='javascript' src="js/popcalendar.js"></script>
 <SCRIPT language="JavaScript">
 <!--
+
 <!-- comeco do selection box
 function move(fbox, tbox) {
 var arrFbox = new Array();
@@ -54,12 +55,9 @@ tbox[c] = no;
    }
 }
 //  fim de selection box -->
-
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
 //-->
 </script>
+
 <SCRIPT LANGUAGE="JavaScript">
 
 <!-- selecione e mostra o campo
@@ -728,12 +726,12 @@ type=text/javascript></SCRIPT>
                   <td nowrap valign="bottom" align="center" class="cel_tab" height="35"><input type="submit" value name="nothing2" class="nothing">
 &nbsp;&nbsp;</td><form action="con_desempenho.htm">
                   <td nowrap valign="bottom" align="center"><span class="cel_tab">
-                    <input type="submit" value="Por Consultor" name="act22223" class="tab">
+                    <input type="submit" value="Por Consultor" name="act22223" class="tab_current">
                   </span></td>
 				  </form>
                   <td nowrap valign="bottom" align="center" class="cel_tab">&nbsp;&nbsp;</td>
 				  <form action="con_desempenho_aba_cliente.htm">
-                  <td nowrap valign="bottom" align="center"><input type="submit" value="Por Cliente" name="act2" class="tab_current">                  </td>
+                  <td nowrap valign="bottom" align="center"><input type="submit" value="Por Cliente" name="act2" class="tab">                  </td>
 				  </form>
                   <td nowrap valign="bottom" align="center" class="cel_tab">&nbsp;&nbsp;</td>
 				  <form action="cadastro_boleto_carregado_cancelado.htm">
@@ -770,261 +768,157 @@ type=text/javascript></SCRIPT>
                         <option>Dez
                       </select>
                       <select name="select">
-                          <option>2003
-                          <option>2004
+                        <option>2003
+                        <option>2004
                         <option>2005</option>
-                          <option selected>2006</option>
-                          <option>2007</option>
+                                    <option>2006</option>
+                                    <option selected>2007</option>
                       </select>
-a
-<select name="select3">
-  <option>Jan
-    <option>Fev
-      <option>Mar
-        <option>Abr
-          <option>Mai                        
-            <option>Jun
-              <option>Jul
-                <option>Ago
-                  <option>Set 
-                    <option>Out                          
-                      <option>Nov
-                        <option selected>Dez
+                      a
+                      <select name="select3">
+                        <option>Jan
+                        <option selected>Fev
+                        <option>Mar
+                        <option>Abr
+                        <option>Mai                        
+                        <option>Jun
+                        <option>Jul
+                        <option>Ago
+                        <option>Set 
+                        <option>Out                          
+                        <option>Nov
+                        <option>Dez
                       </select>
-<select name="select2">
-  <option>2003
-    <option>2004
-      <option>2005</option>
-                            <option selected>2006</option>
-                            <option>2007</option>
-</select>
+                      <select name="select4">
+                        <option>2003
+                        <option>2004
+                        <option>2005</option>
+                <option>2006</option>
+                <option selected>2007</option>
+                      </select>
                     </font></td>
                     <td width="20%" rowspan="2"><div align="center"><font color="black">
-				     <form action="con_desem_cliente_rel.htm">
-				       <input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_relatorio.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Relatório" name="btSalvar22" /></form>
-					<form action="con_desem_cliente_graf.htm"><input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_grafico.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Gráfico" name="btSalvar222" /></form>
-					<form action="con_desem_cliente_pizza.htm"><input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_pizza.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Pizza" name="btSalvar222" /></form>
+                        <form action="con_desem_consultor_rel.htm">
+                          <input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_relatorio.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Relat&oacute;rio" name="btSalvar22" />
+                        </form>
+                      <form action="con_desem_consultor_graf.htm">
+                        <input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_grafico.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Gr&aacute;fico" name="btSalvar222" />
+                      </form>
+                      <form action="con_desem_consultor_pizza.htm">
+                        <input style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_pizza.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC" type="submit" value="Pizza" name="btSalvar222" />
+                      </form>
                     </font></div></td>
                   </tr>
                   <tr bgcolor="#fafafa">
-                    <td nowrap="nowrap" bgcolor="#efefef"><div align="right"><strong>Clientes</strong></div></td>
+                    <td nowrap="nowrap" bgcolor="#efefef"><div align="right"><strong>Consultores</strong></div></td>
                     <td><table align="center">
-                      <tr>
-                        <td><select multiple size="8" name="list1" id="list1" style="width:280">
-                            
-                       <option value="57" >3A Rural</option>
-<option value="6941" >Accenture</option>
-<option value="7035" >Aços Groth</option>
-<option value="6881" >Aero Flash</option>
-<option value="6882" >Aero Flash</option>
-<option value="6" >Agence</option>
-<option value="50" >AGENCIA ARROW</option>
-<option value="7009" >Agricon Consultoria</option>
-<option value="58" >Amamsul</option>
-<option value="7028" >Anhanguera Educacional</option>
-<option value="7058" >Antares Capital</option>
-<option value="7052" >Anucc Associação dos Usuarios de Cartão de Crédito</option>
-<option value="7005" >Archivum - Organização e Guarda de Documentos</option>
-<option value="7010" >Arte Traco Publicidade</option>
-<option value="7029" >Arte Traco Publicidade</option>
-<option value="7043" >Assurant Solutions</option>
-<option value="6981" >Ateflor Assessoria Tecnica Florestal Ltda</option>
-<option value="7031" >Banco Bradesco AM</option>
-<option value="2" >Banco Bradesco MT</option>
-<option value="6905" >Banco Central do Brasil</option>
-<option value="33" >Banco Fator</option>
-<option value="6885" >Bem Bom Alimentos</option>
-<option value="6979" >Botti Rubin</option>
-<option value="6947" >Caltabiano</option>
-<option value="18" >Captatec Consultoria</option>
-<option value="7027" >Central de Intercâmbio</option>
-<option value="4684" >CERAMICA GYOTOKU LTDA</option>
-<option value="40" >CERT RASTRO</option>
-<option value="60" >Cert Rastro</option>
-<option value="38" >Chemin Construtora S/A</option>
-<option value="6977" >Claudio Humberto</option>
-<option value="36" >Clínica Dr. Wilson Cantero</option>
-<option value="7053" >CMA Consultoria, Métodos, Assessoria e Mercantil S</option>
-<option value="7040" >Compactor</option>
-<option value="6993" >Consultafrete.com</option>
-<option value="7007" >Controle Soluções Compartilhadas</option>
-<option value="61" >Corredores Ecológicos</option>
-<option value="6711" >CURSOS ROBERTO MIRANDA</option>
-<option value="11" >D1CLICK</option>
-<option value="10" >DDA BRASIL</option>
-<option value="7011" >Deputada Tânia</option>
-<option value="32" >Dicorel</option>
-<option value="41" >Dieta e Saude</option>
-<option value="6936" >Digital Group</option>
-<option value="6982" >Diimagem Diagnósticos</option>
-<option value="42" >Diretotal</option>
-<option value="7048" >Doup Incentive</option>
-<option value="726" >Ecplan Ltda.</option>
-<option value="34" >Enccon Construtora</option>
-<option value="7049" >ENERGIA ONLINE</option>
-<option value="714" >Enzo Cocessionária Fiat</option>
-<option value="7045" >Estúdio Fotográfico Rodrigo Gimenes</option>
-<option value="7025" >Facundo Imobiliária</option>
-<option value="6994" >FC2 Marketing Promocional e Eventos</option>
-<option value="59" >Fertisemen</option>
-<option value="9" >Fiat Paulimar</option>
-<option value="6983" >FitoGuard</option>
-<option value="17" >FORD</option>
-<option value="52" >FRESI PÃES ESPECIAIS</option>
-<option value="6999" >Garra Host</option>
-<option value="56" >Geosat</option>
-<option value="6984" >Globo SAT - NET Brasil</option>
-<option value="7054" >Grand Company</option>
-<option value="7057" >Grupo Brabus</option>
-<option value="7047" >Grupo Chevrolet Nova</option>
-<option value="7056" >Grupo Infinity</option>
-<option value="12" >Guttier Personnalité française</option>
-<option value="6978" >H2L equipamentos e sistemas</option>
-<option value="53" >HAMAJI MACHINE</option>
-<option value="29" >Hidro</option>
-<option value="6796" >Honda</option>
-<option value="8" >Hospital Brasil</option>
-<option value="7008" >Humanita</option>
-<option value="7021" >humanita</option>
-<option value="15" >Idea</option>
-<option value="6988" >Ideas Group</option>
-<option value="7033" >Informativa distribuidora e comunicação</option>
-<option value="6880" >INPC</option>
-<option value="7015" >Itá Jóias</option>
-<option value="6943" >Kampai Motors</option>
-<option value="6998" >Karina Distribuidora</option>
-<option value="64" >Katech</option>
-<option value="16" >Kwikasair</option>
-<option value="6996" >Lenan Imóveis</option>
-<option value="28" >LOPES</option>
-<option value="6911" >Lucio Engenharia</option>
-<option value="6887" >Maluf e Associados</option>
-<option value="7020" >marcus vinicius academia</option>
-<option value="7051" >Maria e Maria</option>
-<option value="39" >Mark Trabalhos Temporários</option>
-<option value="7019" >Mauricio Karani</option>
-<option value="6965" >Maurício Karani</option>
-<option value="26" >Medial Saúde</option>
-<option value="6938" >Mediavox</option>
-<option value="49" >METRORED</option>
-<option value="7001" >MMLink Representação Comercial Ltda.</option>
-<option value="13" >N DIDINI</option>
-<option value="7012" >NBS</option>
-<option value="6944" >Noblat</option>
-<option value="6945" >OCB/MS</option>
-<option value="7002" >Oi Internet</option>
-<option value="22" >One Up</option>
-<option value="46" >Orbe Investimentos</option>
-<option value="6997" >Pão & Tal</option>
-<option value="21" >PHILIPS</option>
-<option value="7024" >Pinheirão Madeiras</option>
-<option value="4343" >PIRELLI PNEUS S/A</option>
-<option value="44" >Pom Pom</option>
-<option value="6709" >Portal do Sul</option>
-<option value="6969" >Pousada Aloha Brasil</option>
-<option value="6705" >POWER TRAVEL</option>
-<option value="6712" >Prime Action</option>
-<option value="30" >Promel</option>
-<option value="6948" >PROMOSEF</option>
-<option value="7055" >QUALITEC CONSULTORIA IMOBILIARIA LTDA</option>
-<option value="62" >QUICKNESS</option>
-<option value="6723" >R. MIRANDA FORMAÇÃO PROFISSIONAL</option>
-<option value="47" >RAIDHO</option>
-<option value="6884" >RECAST CONSULTORIA E MARKETING LTDA</option>
-<option value="63" >REDE RECORD</option>
-<option value="7044" >Renato Ribeiro Pereira</option>
-<option value="7026" >Renault</option>
-<option value="25" >RHODIA</option>
-<option value="6991" >Riscali Imóveis</option>
-<option value="992" >SADIA</option>
-<option value="7030" >Samuel S. Santos</option>
-<option value="55" >SÃO PAULO ALPARGATAS S.A</option>
-<option value="7039" >Search RH</option>
-<option value="6940" >Secretaria de Segurança Pública</option>
-<option value="6701" >SERTÃO</option>
-<option value="43" >Simpress Ind.  Com. e Locação</option>
-<option value="7050" >Sina Enxovais</option>
-<option value="14" >Sinal Veículos</option>
-<option value="6970" >SIQ Systems</option>
-<option value="45" >Souza Lima Segurança Patrimonial</option>
-<option value="6883" >Spot Publicidade</option>
-<option value="6992" >Stampa Comércio de Alimentos</option>
-<option value="7046" >Support Comm</option>
-<option value="7041" >Takla</option>
-<option value="7022" >Takla Produções</option>
-<option value="19" >TAM</option>
-<option value="6946" >Target Sistemas</option>
-<option value="54" >TEC SORO / GRAVOSOM</option>
-<option value="23" >Tecnol</option>
-<option value="7042" >Tecnutri do Brasil</option>
-<option value="7018" >Teste</option>
+                        <tr>
+                          <td><select multiple size="8" name="list1" id="list1" style="width:280">
 
-<option value="51" >TOP SERVICE</option>
+<option value="aline.chastel" >Aline Chastel Lima</option>
 
-<option value="7038" >Unidesc</option>
-<option value="7" >Unipar</option>
-<option value="48" >VENICE VIAGENS E TURISMO</option>
-<option value="1" >Vivo</option>
-<option value="20" >VOE GOL</option>
-<option value="6939" >WBC International Business</option>
+<option value="bruno.freitas" >Bruno Sousa Freitas</option>
+<option value="contato" >Carlos Cezar Girão de Arruda</option>
+<option value="carlos.arruda" >Carlos Flávio Girão de Arruda</option>
+<option value="carlos.carvalho" >Carlos Henrique de Carvalho Filho</option>
+<option value="felipe.chahad" >Felipe Chahad</option>
 
-<option value="6912" >WebsourcingBrazil</option>
-<option value="6942" >Wnet tecnologia</option>
-<option value="6722" >XYZ</option>
-<option value="6710" >ZICARD VIEIRA</option>
-                          </select>
-                        </td>
-                        <td align="center" valign="middle">
-						  <input name="button" type="button" onClick="move(list1,list2)" value=">>">
-                          <br>
-                        <input name="button" type="button" onClick="move(list2,list1)" value="<<">
-                        </td>
-                        <td><select multiple size="8" name="list2" id="list2" style="width:280">
-<option value="3" >Toyota do Brasil</option>	
-<option value="7014" >Traffic</option>
-<option value="24" >Unicoba</option>
-<option value="27" >WebMotors</option>
-<option value="6949" >TIM Celular</option>
-					
-                          </select>
-                            <input type="hidden"  name="lista_analista" value="">
-                        </td>
-                      </tr>
+<option value="silvio.maraes" >Silvio Marães Ferreira</option>
+                            </select>
+                          </td>
+                          <td align="center" valign="middle"><input name="button" type="button" onClick="move(list1,list2)" value=">>">
+                              <br>
+                              <input name="button" type="button" onClick="move(list2,list1)" value="<<">
+                          </td>
+                          <td><select multiple size="8" name="list2" id="list2" style="width:280">
+<option value="anapaula.chiodaro" >Ana Paula Fontes Martins Chiodaro</option>
+<option value="renato.pereira" >Renato Marcus Pereira</option>
+                            </select>
+                              <input type="hidden"  name="lista_analista" value="">
+                          </td>
+                        </tr>
                     </table></td>
                   </tr>
                 </tbody>
               </table>
               <br>
-              <table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
-      <tr>
-		  <td colspan="3" width="100%" style="BORDER:1px #D5DFE0 solid;">
-		  <center>
-		  
-		  	  
-		
-
-
-     	  
-		  <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/
-flash/swflash.cab#version=6,0,0,0" WIDTH="600" HEIGHT="350" id="FusionCharts">
-<PARAM NAME=movie VALUE="charts/FC_2_3_MSLine_2.swf">
-<PARAM NAME="FlashVars" VALUE="&dataURL=data_line_graf.xml&amp;chartWidth=600&amp;chartHeight=350">
-<PARAM NAME=quality VALUE=high>
-<PARAM NAME=bgcolor VALUE=#FFFFFF>
-<EMBED src="charts/FC_2_3_MSLine_2.swf" FlashVars="&dataURL=data_line_graf.xml&amp;chartWidth=600&amp;chartHeight=350" quality=high bgcolor=#FFFFFF WIDTH="600" HEIGHT="350" NAME="FusionCharts" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED>
-</OBJECT>
-		
-		  
-		    
-			</center>
-          </td>
-        </tr>
-        
-      </table>    
+              <table cellspacing=1 cellpadding=3 width="100%" 
+                  bgcolor=#cccccc  id="pesquisaAvancada">
+                <tbody>
+                  <tr bgcolor=#efefef>
+                    <td colspan=5><span class="style3">Ana Paula Fontes Martins Chiodaro</span> </td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap><div align="center"><strong>Per&iacute;odo</strong></div></td>
+                    <td><div align="center"><strong>Receita L&iacute;quida </strong></div></td>
+                    <td><div align="center"><strong>Custo Fixo </strong></div></td>
+                    <td><div align="center"><strong>Comiss&atilde;o</strong></div></td>
+                    <td><div align="center"><strong>Lucro</strong></div></td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap>Janeiro de 2007</td>
+                    <td><div align="right">R$ 1.500,00</div></td>
+                    <td><div align="right">- R$ 2.000,00</div></td>
+                    <td><div align="right">- R$ 1.000,00</div></td>
+                    <td><div align="right"><font color="#FF0000">- R$ 1.500,00</font></div></td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap>Fevereiro de 2007 </td>
+                    <td><div align="right">R$ 25.000,00</div></td>
+                    <td><div align="right">- R$ 2.000,00</div></td>
+                    <td><div align="right">- R$ 2.500,00</div></td>
+                    <td><div align="right">R$ 20.500,00</div></td>
+                  </tr>
+                  <tr bgcolor=#efefef>
+                    <td nowrap bgcolor="#efefef"><strong>SALDO</strong></td>
+                    <td><div align="right"><font color="#000000">R$ 26.500,00</font></div></td>
+                    <td><div align="right"><font color="#000000">- R$ 4.000,00</font></div></td>
+                    <td><div align="right"><font color="#000000">- R$ 3.500,00</font></div></td>
+                    <td><div align="right"><font color="#0000FF">R$ 19.000,00</font></div></td>
+                  </tr>
+                </tbody>
+              </table>
               <br>
-              <p>&nbsp;</p>
-              <p>&nbsp;</p>
-            </td>
+              <table cellspacing=1 cellpadding=3 width="100%" 
+                  bgcolor=#cccccc  id="pesquisaAvancada">
+                <tbody>
+                  <tr bgcolor=#efefef>
+                    <td colspan=5><span class="style3">Renato Marcus Pereira </span></td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap><div align="center"><strong>Per&iacute;odo</strong></div></td>
+                    <td><div align="center"><strong>Receita L&iacute;quida </strong></div></td>
+                    <td><div align="center"><strong>Custo Fixo </strong></div></td>
+                    <td><div align="center"><strong>Comiss&atilde;o</strong></div></td>
+                    <td><div align="center"><strong>Lucro</strong></div></td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap>Janeiro de 2007</td>
+                    <td><div align="right">R$ 1.500,00</div></td>
+                    <td><div align="right">- R$ 2.000,00</div></td>
+                    <td><div align="right">- R$ 1.000,00</div></td>
+                    <td><div align="right"><font color="#FF0000">- R$ 1.500,00</font></div></td>
+                  </tr>
+                  <tr bgcolor=#fafafa>
+                    <td nowrap>Fevereiro de 2007 </td>
+                    <td><div align="right">R$ 25.000,00</div></td>
+                    <td><div align="right">- R$ 2.000,00</div></td>
+                    <td><div align="right">- R$ 2.500,00</div></td>
+                    <td><div align="right">R$ 20.500,00</div></td>
+                  </tr>
+                  <tr bgcolor=#efefef>
+                    <td nowrap bgcolor="#efefef"><strong>SALDO</strong></td>
+                    <td><div align="right"><font color="#000000">R$ 26.500,00</font></div></td>
+                    <td><div align="right"><font color="#000000">- R$ 4.000,00</font></div></td>
+                    <td><div align="right"><font color="#000000">- R$ 3.500,00</font></div></td>
+                    <td><div align="right"><font color="#0000FF">R$ 19.000,00</font></div></td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
+              <p><br>
+              </p>
+              <p>&nbsp;    </p></td>
         </tr>
       </table></TD>
     <TD noWrap width=10><IMG 

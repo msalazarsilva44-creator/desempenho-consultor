@@ -10,6 +10,7 @@ $DB_HOST = $_ENV['DB_HOST'] ?? 'localhost';
 $DB_NAME = $_ENV['DB_NAME'] ?? 'performance_comercial';
 $DB_USER = $_ENV['DB_USER'] ?? 'root';
 $DB_PASS = $_ENV['DB_PASS'] ?? '';
+
 $dsn = "mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8";
 
 function pdo(): PDO {
@@ -76,13 +77,13 @@ function api_list_consultores(): array {
   // Tablas: CAO_USUARIO (U) + PERMISSAO_SISTEMA (P)
   // Join por CO_USUARIO y filtros: CO_SISTEMA = 1, IN_ATIVO = 'S', CO_TIPO_USUARIO IN (0,1,2)
   $sql = "
-    SELECT U.CO_USUARIO, U.NO_USUARIO
-    FROM CAO_USUARIO U
-    JOIN PERMISSAO_SISTEMA P ON P.CO_USUARIO = U.CO_USUARIO
-    WHERE P.CO_SISTEMA = 1
-      AND P.IN_ATIVO = 'S'
-      AND P.CO_TIPO_USUARIO IN (0,1,2)
-    ORDER BY U.NO_USUARIO
+    SELECT U.co_usuario, U.no_usuario
+    FROM cao_usuario U
+    JOIN permissao_sistema P ON P.co_usuario = U.co_usuario
+    WHERE P.co_sistema = 1
+      AND P.in_ativo = 'S'
+      AND P.co_tipo_usuario IN (0,1,2)
+    ORDER BY U.no_usuario
   ";
   $rows = pdo()->query($sql)->fetchAll();
   return $rows;
@@ -90,10 +91,10 @@ function api_list_consultores(): array {
 
 function get_salario_bruto(string $co_usuario): float {
   // Costo Fijo: BRUT_SALARIO (valor fijo e invariable). Si hubiera múltiples, tomamos el más reciente.
-  $stmt = pdo()->prepare("SELECT BRUT_SALARIO FROM CAO_SALARIO WHERE CO_USUARIO = ? ORDER BY DT_ALTERACAO DESC LIMIT 1");
+  $stmt = pdo()->prepare("SELECT brut_salario FROM cao_salario WHERE co_usuario = ? ORDER BY dt_alteracao DESC LIMIT 1");
   $stmt->execute([$co_usuario]);
   $row = $stmt->fetch();
-  return $row ? (float)$row['BRUT_SALARIO'] : 0.0;
+  return $row ? (float)$row['brut_salario'] : 0.0;
 }
 
 function query_faturas(string $co_usuario, string $fromDate, string $toDate): array {
@@ -101,14 +102,14 @@ function query_faturas(string $co_usuario, string $fromDate, string $toDate): ar
   // CAO_FATURA (F) join CAO_OS (O) por CO_OS -> filtra O.CO_USUARIO
   $sql = "
     SELECT 
-      F.DATA_EMISSAO,
-      F.VALOR,
-      F.TOTAL_IMP_INC,  -- %
-      F.COMISSAO_CN     -- %
-    FROM CAO_FATURA F
-    JOIN CAO_OS O ON O.CO_OS = F.CO_OS
-    WHERE O.CO_USUARIO = :USR
-      AND F.DATA_EMISSAO BETWEEN :DF AND :DT
+      F.data_emissao,
+      F.valor,
+      F.total_imp_inc,  -- %
+      F.comissao_cn      -- %
+    FROM cao_fatura F
+    JOIN cao_os O ON O.co_os = F.co_os
+    WHERE O.co_usuario = :USR
+      AND F.data_emissao BETWEEN :DF AND :DT
   ";
   $stmt = pdo()->prepare($sql);
   $stmt->execute([':USR' => $co_usuario, ':DF' => $fromDate, ':DT' => $toDate]);
@@ -143,9 +144,9 @@ function api_relatorio(array $consultores, string $fromYM, string $toYM): array 
     $fats = query_faturas($co_usuario, $fromDate, $toDate);
 
     // Agregar NO_USUARIO para mostrar
-    $nameRow = pdo()->prepare("SELECT NO_USUARIO FROM CAO_USUARIO WHERE CO_USUARIO=?");
+    $nameRow = pdo()->prepare("SELECT no_usuario FROM cao_usuario WHERE co_usuario=?");
     $nameRow->execute([$co_usuario]);
-    $no_usuario = ($nameRow->fetch()['NO_USUARIO'] ?? $co_usuario);
+    $no_usuario = ($nameRow->fetch()['no_usuario'] ?? $co_usuario);
 
     // Inicializar acumuladores por mes
     $byMonth = [];
@@ -159,11 +160,11 @@ function api_relatorio(array $consultores, string $fromYM, string $toYM): array 
     }
 
     foreach ($fats as $f) {
-      $ym = date('Y-m', strtotime($f['DATA_EMISSAO']));
+      $ym = date('Y-m', strtotime($f['data_emissao']));
       if (!isset($byMonth[$ym])) continue; // fuera de rango mensual
-      $valor = (float)$f['VALOR'];
-      $imp   = pct_to_float($f['TOTAL_IMP_INC']);
-      $com   = pct_to_float($f['COMISSAO_CN']);
+      $valor = (float)$f['valor'];
+      $imp   = pct_to_float($f['total_imp_inc']);
+      $com   = pct_to_float($f['comissao_cn']);
 
       $liq = $valor - ($valor * $imp);
       $comissao = $liq * $com;
@@ -218,16 +219,16 @@ function api_grafico(array $consultores, string $fromYM, string $toYM): array {
     $custos[] = $salario;
 
     // Nombre consultor
-    $nameRow = pdo()->prepare("SELECT NO_USUARIO FROM CAO_USUARIO WHERE CO_USUARIO=?");
+    $nameRow = pdo()->prepare("SELECT no_usuario FROM cao_usuario WHERE co_usuario=?");
     $nameRow->execute([$co_usuario]);
-    $nome = ($nameRow->fetch()['NO_USUARIO'] ?? $co_usuario);
+    $nome = ($nameRow->fetch()['no_usuario'] ?? $co_usuario);
 
     // Sumar receita líquida total periodo
     $fats = query_faturas($co_usuario, $fromDate, $toDate);
     $sumLiq = 0.0;
     foreach ($fats as $f) {
-      $valor = (float)$f['VALOR'];
-      $imp   = pct_to_float($f['TOTAL_IMP_INC']);
+      $valor = (float)$f['valor'];
+      $imp   = pct_to_float($f['total_imp_inc']);
       $sumLiq += $valor - ($valor * $imp);
     }
     $series[] = ['consultor' => $nome, 'valor' => $sumLiq];
@@ -247,15 +248,15 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
 
   foreach ($consultores as $co_usuario) {
     // Nombre consultor
-    $nameRow = pdo()->prepare("SELECT NO_USUARIO FROM CAO_USUARIO WHERE CO_USUARIO=?");
+    $nameRow = pdo()->prepare("SELECT no_usuario FROM cao_usuario WHERE co_usuario=?");
     $nameRow->execute([$co_usuario]);
-    $nome = ($nameRow->fetch()['NO_USUARIO'] ?? $co_usuario);
+    $nome = ($nameRow->fetch()['no_usuario'] ?? $co_usuario);
 
     $fats = query_faturas($co_usuario, $fromDate, $toDate);
     $sumLiq = 0.0;
     foreach ($fats as $f) {
-      $valor = (float)$f['VALOR'];
-      $imp   = pct_to_float($f['TOTAL_IMP_INC']);
+      $valor = (float)$f['valor'];
+      $imp   = pct_to_float($f['total_imp_inc']);
       $sumLiq += $valor - ($valor * $imp);
     }
     $series[] = ['consultor' => $nome, 'valor' => $sumLiq];
@@ -277,17 +278,15 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Consultor – Desempeño</title>
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Bootstrap & Charts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     :root{
-      --bg: #0b1220;        /* fondo base */
-      --bg-elev: #0f172a;   /* elevación */
+      --bg: #0b1220;      /* fondo base */
+      --bg-elev: #0f172a;    /* elevación */
       --card: #0f172a;
       --card-2:#111827;
       --muted:#94a3b8;
@@ -300,10 +299,10 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
     }
     *{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
     body{background: radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,.12), transparent 60%),
-                      radial-gradient(1200px 600px at 110% 10%, rgba(16,185,129,.08), transparent 60%), var(--bg);
-         color: var(--text)}
+                       radial-gradient(1200px 600px at 110% 10%, rgba(16,185,129,.08), transparent 60%), var(--bg);
+          color: var(--text)}
     .glass{background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-           border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow)}
+          border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow)}
     .navbar{background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.01)); border-bottom:1px solid var(--border)}
     .brand-mark{display:flex;align-items:center;gap:.6rem}
     .brand-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(145deg,var(--primary),#22c55e)}
@@ -333,8 +332,8 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
     .chart-square{
       position: relative;
       width: 100%;
-      max-width: 420px;   /* ajusta a gusto */
-      margin: 0 auto;     /* centra el gráfico */
+      max-width: 420px;    /* ajusta a gusto */
+      margin: 0 auto;      /* centra el gráfico */
     }
     .chart-square::before{
       content: "";
@@ -348,7 +347,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container py-2">
       <div class="brand-mark">
@@ -367,7 +365,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
 
   <main class="container my-4">
     <div class="row g-4">
-      <!-- FILTROS -->
       <div class="col-lg-4">
         <div class="card card-gradient p-3 shadow-soft sticky-tools">
           <div class="d-flex align-items-start justify-content-between">
@@ -375,8 +372,7 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
               <h2 class="h5 mb-1">Filtros</h2>
               <div class="subtle">Selecciona consultores y período</div>
             </div>
-            <!-- Badge eliminado a pedido -->
-          </div>
+            </div>
           <hr class="border-secondary-subtle">
 
           <div class="mb-3">
@@ -407,9 +403,7 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
         </div>
       </div>
 
-      <!-- CONTENIDO -->
       <div class="col-lg-8">
-        <!-- RELATORIO -->
         <section id="relatorioCard" class="card p-3 d-none">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
@@ -439,7 +433,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
           <div id="totais" class="mt-3 d-flex flex-wrap gap-2"></div>
         </section>
 
-        <!-- GRÁFICO -->
         <section id="graficoCard" class="card p-3 d-none">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
@@ -450,7 +443,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
           <canvas id="barChart" height="120"></canvas>
         </section>
 
-        <!-- PIZZA -->
         <section id="pizzaCard" class="card p-3 d-none">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
@@ -464,7 +456,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
           <div id="pieLegend" class="mt-3 d-flex flex-wrap gap-2"></div>
         </section>
 
-        <!-- EMPTY STATE -->
         <section id="emptyState" class="empty glass">
           <div style="font-size:2rem">📊</div>
           <div class="fw-semibold">Aún no hay datos</div>
@@ -476,7 +467,6 @@ function api_pizza(array $consultores, string $fromYM, string $toYM): array {
     <p class="mt-4 text-center footer-note">Formato monetario BR y fechas dd/mm/aaaa</p>
   </main>
 
-  <!-- Toasts -->
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
     <div id="toast" class="toast text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-body" id="toastBody">Listo</div>
@@ -504,7 +494,7 @@ async function loadConsultores(){
     const res = await fetch('?route=consultores');
     const list = await res.json();
     consultores.innerHTML = '';
-    list.forEach(r=>{ const opt=document.createElement('option'); opt.value=r.CO_USUARIO; opt.textContent=r.NO_USUARIO; consultores.appendChild(opt); });
+    list.forEach(r=>{ const opt=document.createElement('option'); opt.value=r.co_usuario; opt.textContent=r.no_usuario; consultores.appendChild(opt); });
   }catch(e){ showToast('Error al cargar consultores'); }
 }
 
@@ -584,7 +574,7 @@ async function runPizza(){
   try{
     const body = new URLSearchParams(); consultores.forEach(c=>body.append('consultores[]', c)); body.append('fromYM', range.fromYM); body.append('toYM', range.toYM);
     const res = await fetch('?route=pizza', { method:'POST', body }); const data = await res.json();
-    const labels = (data.series||[]).map(s=>s.consultor); const values = (data.series||[]).map(s=>s.valor); const perc   = (data.series||[]).map(s=>s.percent);
+    const labels = (data.series||[]).map(s=>s.consultor); const values = (data.series||[]).map(s=>s.valor); const perc    = (data.series||[]).map(s=>s.percent);
 
     const pieWrap = document.getElementById('pieChart').parentElement;
     const legend  = document.getElementById('pieLegend');
